@@ -16,21 +16,22 @@ class News extends StatelessWidget {
 
   Future getNews() async {
     var response = await http.get(
-        Uri.https("real-time-finance-data.p.rapidapi.com", "/market-trends",
-            {"trend_type": "CRYPTO", "country": "us", "language": "en"}),
+        Uri.https(
+          "crypto-news34.p.rapidapi.com",
+          "/news",
+        ),
         headers: {
           'X-RapidAPI-Key':
               'f656fcf8a5msh98add628c792a6ep1cc543jsn376ef18bac4b',
-          'X-RapidAPI-Host': 'real-time-finance-data.p.rapidapi.com'
+          'X-RapidAPI-Host': 'crypto-news34.p.rapidapi.com'
         });
 
     var jsonData = jsonDecode(response.body);
 
-    for (var newsElem in jsonData["data"]["news"]) {
+    for (var newsElem in jsonData) {
       var newsData = NewsModel(
-          articleTitle: newsElem["article_title"],
-          articleUrl: newsElem["article_url"],
-          articlePhotoUrl: newsElem["article_photo_url"],
+          articleTitle: newsElem["title"],
+          articleUrl: newsElem["url"],
           source: newsElem["source"]);
 
       news.add(newsData);
@@ -49,12 +50,17 @@ class News extends StatelessWidget {
           return ListView.builder(
             itemCount: news.length,
             itemBuilder: (context, index) {
-              return Card(
+              return Container(
+                  padding: const EdgeInsets.all(10),
                   margin: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black26),
+                      borderRadius: BorderRadius.circular(10)),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.network(news[index].articlePhotoUrl),
+                      // Image.network(
+                      //   news[index].articlePhotoUrl,
+                      // ),
                       Container(
                         padding: const EdgeInsets.all(20),
                         child: Center(
@@ -68,7 +74,7 @@ class News extends StatelessWidget {
                       Text(
                         "Source - ${news[index].source}",
                         style: const TextStyle(
-                            fontSize: 22, color: Colors.black38),
+                            fontSize: 20, color: Colors.black45),
                       ),
                       TextButton(
                         onPressed: () {

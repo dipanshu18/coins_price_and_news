@@ -50,7 +50,9 @@ class Coins extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(20),
                 margin: const EdgeInsets.all(20),
-                color: Colors.black12,
+                decoration: BoxDecoration(
+                    color: Colors.black26,
+                    borderRadius: BorderRadius.circular(10)),
                 child: Row(children: [
                   Image.network(
                     coins[index].image,
@@ -61,16 +63,23 @@ class Coins extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${coins[index].name}(${coins[index].symbol})",
+                        coins[index].name,
                         style: const TextStyle(
                             color: Colors.black87,
                             fontSize: 20,
                             fontWeight: FontWeight.w900),
                       ),
                       Text(
+                        "(${coins[index].symbol})",
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      Text(
                         "\$${coins[index].currentPrice.toString()}",
                         style: const TextStyle(
-                            color: Colors.black38,
+                            color: Colors.black54,
                             fontSize: 25,
                             fontWeight: FontWeight.w600),
                       ),
